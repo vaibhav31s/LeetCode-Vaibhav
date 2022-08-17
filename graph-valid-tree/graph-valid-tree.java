@@ -11,20 +11,21 @@ class Solution {
         return true;
     }
     class unionFind{
-        int[] root ;
+        HashMap<Integer, Integer> root;
         int[] rank;
         unionFind(int size){
             
-            root = new int[size];
+            root = new  HashMap<>();
             rank = new int[size];
             for(int i = 0; i < size; i++){
-                root[i] = i;
+                root.put(i,i);
                 rank[i] = 1;
             }
         }
         int find(int x){
-            if(root[x] == x) return x;
-            return root[x] = find(root[x]);
+            if(root.get(x) == x) return x;
+            root.put(root.get(x), find(root.get(x)));
+            return root.get(root.get(x));
         }
         boolean union(int x, int y){
             int rootX = find(x);
@@ -35,11 +36,11 @@ class Solution {
              if (rootX == rootY) 
                     return false;
             if(rankX >  rankY){
-                root[rootY] = rootX;
+                root.put(rootY,rootX);
             }else if(rankX < rankY){
-                root[rootX] = rootY;
+                root.put(rootX,rootY);
             }else{
-                root[rootY] = rootX;
+                root.put(rootY, rootX);
                 rank[rootX]++;
             }
     
