@@ -28,15 +28,27 @@ class Solution {
         
     }
     
+    boolean isValid(int i, int j, int r, int c, int[][] grid){
+        if(i < 0 || j < 0  || i >= r || j >= c || grid[i][j]!= 0) return false;
+        
+        return true;
+    }
     void dfs(int[][] grid, int i, int j, int r,int c){
-        if(i < 0 || j <0 || i >= r || j >= c || grid[i][j] == 1) return;
+        
         grid[i][j] = 1;
         
+        int[] ax = {1, -1, 0 , 0};
+        int[] ay = {0, 0,  1, -1};
         
-        dfs(grid, i-1, j, r, c);
-        dfs(grid, i+1, j, r, c);
-        dfs(grid, i, j-1, r, c);
-        dfs(grid, i, j+1, r, c);
+        for(int k = 0; k < 4; k++){
+            int nx = i + ax[k];
+            int ny = j + ay[k];
+            if(isValid(nx, ny, r, c, grid)){
+                dfs(grid, nx, ny, r, c);
+            }
+        }
+        
+       
         
     }
 }
