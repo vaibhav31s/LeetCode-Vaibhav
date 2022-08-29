@@ -13,6 +13,6 @@ class Solution {
             }else {start =mid +1 ;
                   possible =(int) mid;}
         }
-        return (int)possible;
+        return (int)end;
     }
 }
