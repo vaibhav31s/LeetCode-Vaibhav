@@ -1,6 +1,6 @@
 class Solution {
     public int[] numsSameConsecDiff(int n, int k) {
-        HashSet<String> ans = new HashSet<>();
+        HashSet<Integer> ans = new HashSet<>();
             StringBuilder s = new StringBuilder();
         for(int i = 1; i <= 9; i++){
             s.append(i);
@@ -11,15 +11,15 @@ class Solution {
     
         int[] answer = new int[ans.size()];
         int i = 0;
-        for(String c : ans){
-            answer[i++] = Integer.parseInt(c);
+        for(Integer c : ans){
+            answer[i++] = c;
         }
         return answer;
     }
     
-    void backtrack(StringBuilder s, int last, int n, int k, HashSet<String> answer){
+    void backtrack(StringBuilder s, int last, int n, int k, HashSet<Integer> answer){
         if(s.length() == n){
-            answer.add(s.toString());
+            answer.add(Integer.parseInt(s.toString()));
             return;
         }
         
