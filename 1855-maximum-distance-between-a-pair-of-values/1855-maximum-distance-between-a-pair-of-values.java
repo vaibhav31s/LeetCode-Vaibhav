@@ -3,7 +3,7 @@ class Solution {
         int max = 0;
         for(int i = 0; i < nums1.length; i++){
             int index = binarySearch(nums1[i],i, nums2.length-1, nums2);
-            System.out.println(index);
+           
             if(index == -1) continue;
             max = Math.max(Math.abs(i -  index),max);
         }
