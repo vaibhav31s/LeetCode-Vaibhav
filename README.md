@@ -1,2 +1,2 @@
 # LeetCode-Vaibhav
-Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)
+This is going to be All the qns i solved on leetcode everyday. less go
