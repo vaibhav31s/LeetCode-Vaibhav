@@ -18,8 +18,7 @@ class Solution {
         for(int i  = 1 ; i< groupBy.size(); i+=1){
             answer += Math.min(groupBy.get(i-1),groupBy.get(i));
         }
-        System.out.println(groupBy);
-
+        
 return answer;
     }
 }
