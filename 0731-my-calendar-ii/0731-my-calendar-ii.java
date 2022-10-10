@@ -11,8 +11,8 @@ class MyCalendarTwo {
         map.put(end, map.getOrDefault(end, 0) - 1);
   
         int sum = 0;
-        for( Integer v : map.values() ){
-            sum += v;
+        for( int  key : map.keySet() ){
+            sum += map.get(key);
             if( sum == 3 ){
                 
                 map.put(start,map.getOrDefault(start,0)-1); 
