@@ -2,11 +2,11 @@ class Solution {
     public boolean isToeplitzMatrix(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j <  n; j++){
-                map.putIfAbsent(i-j, matrix[i][j]);
-                if(map.get(i-j) != matrix[i][j]) return false;
+        // HashMap<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 1; i < m; i++){
+            for(int j = 1; j <  n; j++){
+               if(matrix[i-1][j-1] != matrix[i][j]) return false;
             }
         }
         
