@@ -13,7 +13,7 @@ class Solution {
             map.putIfAbsent(p.user, new ArrayList<>());
             map.get(p.user).add(p.web);
         }
-        System.out.println(map);
+        // System.out.println(map);
         TreeMap<String, Integer> map1 = new TreeMap<>();
         for(String key: map.keySet()){
             Set<String> set = new HashSet<>();
