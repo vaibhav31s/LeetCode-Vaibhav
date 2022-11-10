@@ -23,6 +23,7 @@ class Solution {
                     int xx = l.x + dx[i];
                     int yy = l.y + dy[i];
                     String k = xx + " "+ yy;
+                    if(set.contains(k)) continue;
                     if(!set.contains(k) &&  xx >= -3 && yy >= -3){
                     dq.add(new Coordinate(xx,yy));
                     set.add(k);
