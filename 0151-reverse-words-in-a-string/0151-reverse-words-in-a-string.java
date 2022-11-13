@@ -14,22 +14,5 @@ class Solution {
         }
         return sb.toString().trim();
     }
-    
-    boolean isAlphaNumeric(char c){
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
-    }
-                     
-                     
-    String reverse(char[] arr, int start, int end){
-         while(start <= end){
-            swap(arr, start++, end--);
-         }
-        return String.valueOf(arr);
-    }
-    
-    void swap(char[] arr, int start, int end){
-             char temp = arr[end];
-             arr[end] = arr[start];
-             arr[start] = temp; 
-    }
+ 
 }
