@@ -10,7 +10,7 @@ class Solution {
         if(dp[index] != null) return dp[index];
         int max = Math.min(nums.length - 1, index + nums[index]);
         
-        int min = 500000;
+        int min = nums.length;
         for(int i = max; i > index; i--){
             min = Math.min(1 + dfs(nums, i, dp),min);
         } 
