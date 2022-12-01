@@ -1,41 +1,39 @@
 class Solution {
     public boolean halvesAreAlike(String s) {
-        int firstHalve = 0;
-        int secondHalve = 0;
-        HashSet<Character> vowels = new HashSet<>();
-        vowels.add('a');
-        vowels.add('e');
-        vowels.add('i');
-        vowels.add('o');
-        vowels.add('u');
-        vowels.add('A');
-        vowels.add('E');
-        vowels.add('I');
-        vowels.add('O');
-        vowels.add('U')
-            ;
+        char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
         
-        int half = s.length() / 2;
+        int firstHalf = 0;
+        int secondHalf = 0;
+        
+        int n = s.length();
+        int half = n / 2;
         
         for(int i = 0; i < half; i++){
             char ch = s.charAt(i);
-            if(vowels.contains(ch)) firstHalve++;
+            for(char x : vowels) {
+                if(x == ch) firstHalf++;
+            }
         }
         
         
-        for(int i = half; i < s.length(); i++){
+        for(int i = half; i < n; i++){
             char ch = s.charAt(i);
-            if(vowels.contains(ch)) secondHalve++;
+            for(char x : vowels) {
+                if(x == ch) secondHalf++;
+            }
         }
         
-        
-        return firstHalve == secondHalve;
+        return firstHalf == secondHalf;
     }
 }
-// bo ok
-//  1  1
-     // ==
+//bo ok
+// 1  1
+//  ==
 
 //text book
-// 1    2
-//    !=
+//1     2
+//  != 
+
+// Space : o(1)
+
+// Time  : o(n) 
