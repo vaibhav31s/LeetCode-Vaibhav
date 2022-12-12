@@ -1,10 +1,15 @@
 class Solution {
-    int[] dp = new int[46];
     public int climbStairs(int n) {
+        int[] dp = new int[n+1];
+       return dfs(n,dp);
+    }
+    int dfs(int n,int[] dp){
         if(n == 0) return 1;
-        if(n < 0) return 0;
-        if(dp[n] != 0) return dp[n];
+        if(n < 0 ) return 0;
+            if(dp[n] != 0) return dp[n];
+        int one = dfs(n - 1,dp) ;
+        int two = dfs(n - 2,dp);
         
-        return dp[n] = climbStairs(n - 1) +  climbStairs(n -2); 
+        return  dp[n]  = one + two;
     }
 }
