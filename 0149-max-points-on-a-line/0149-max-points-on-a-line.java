@@ -1,20 +1,32 @@
 class Solution {
     public int maxPoints(int[][] points) {
         int n = points.length;
-        if (n == 1) {
-            return 1;
-        }
-        int result = 2;
-        for (int i = 0; i < n; i++) {
-            Map<Double, Integer> cnt = new HashMap<>();
-            for (int j = 0; j < n; j++) {
-                if (j != i) {
-                    cnt.merge(Math.atan2(points[j][1] - points[i][1],
-                    	points[j][0] - points[i][0]), 1, Integer::sum);
+        if(n == 1) return 1;
+        int result = 0;
+        
+        for(int i = 0; i < n; i++){
+            for(int j = i+1; j < n; j++){
+                int count = 2;
+                int dx = points[j][0] - points[i][0];
+                int dy = points[j][1] - points[i][1];
+                
+                // dy/dx = dy_/dx_;
+                // dx * dy_ = dy * dx_;
+                
+                for(int k = 0; k < n; k++){
+                    if(k != i && i!=j){
+                        int dx_ = points[k][0] - points[i][0];
+                        int dy_ = points[k][1] - points[i][1];
+                        
+                        if(dy * dx_ == dy_ * dx) count++;
+                        
+                        
+                    }
                 }
+            result = Math.max(result, count);
             }
-            result = Math.max(result, Collections.max(cnt.values()) + 1);
         }
-        return result;
+        
+        return result-1;
     }
 }
