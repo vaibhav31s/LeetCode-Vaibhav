@@ -15,14 +15,21 @@
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p == null && q == null) return true;
+        StringBuilder s1 = new StringBuilder();
+        StringBuilder s2 = new StringBuilder();
         
-        if((p!= null && q == null) || (q != null && p == null) ) return false;
-        
-        if(p.val != q.val) return false;
-        
-        return (isSameTree(p.left, q.left) &&   isSameTree(p.right  , q.right));
-        
-        
+        write(p, s1);
+        write(q,s2);
+        return s1.toString().equals(s2.toString());
+    }
+    
+    void write(TreeNode p, StringBuilder sb){
+        if(p ==null){
+            sb.append('*'+",");
+        return;
+        }
+        sb.append(p.val+",");
+        write(p.left, sb);
+        write(p.right, sb);
     }
 }
