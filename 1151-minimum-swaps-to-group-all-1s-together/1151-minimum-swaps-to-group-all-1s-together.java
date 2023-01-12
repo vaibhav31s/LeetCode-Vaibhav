@@ -1,28 +1,48 @@
 class Solution {
     public int minSwaps(int[] data) {
         int one  = 0;
-        for(int x : data) if(x == 1) one++;
-        
-        if(one == 1 ||  one == data.length ) return 0;
-        
-        
-//         System.out.println(one);
-//         System.out.println(data.length);
-        int win =one;
-       int curOneInWin = 0;
-        int maxOneInWin = 0;
-        for(int i = 0; i < data.length; i++){
-            curOneInWin += data[i];
-            if(i >= win){
-                curOneInWin -= data[i -  win];
+        int zero = 0;
+        for(int x : data){
+            if(x==1)
+                one++;
+            else 
+                zero++;
+        }
+        int win = one, n = data.length;
+        int size = one;
+        int s = 0;
+        int answer = Integer.MAX_VALUE;
+        int bone = 0;
+        int bzero = 0;
+        for(int i = 0; i < n; i++){
+            int x = data[i];
+            int last = i - win;
+            if(s < one){
+                s++;
+                if(x==1)
+                    bone++;
+                else 
+                    bzero++;
+            }else{
+                answer = Math.min(bzero, answer);
+                
+                if(data[last]==1)
+                    bone--;
+                else 
+                    bzero--;
+                
+                
+                if(x==1)
+                    bone++;
+                else 
+                    bzero++;
+                
                 
             }
-            maxOneInWin = Math.max(maxOneInWin, curOneInWin);
+            
+            
         }
-        
-        
-        
-        
-        return win - maxOneInWin;
+         answer = Math.min(bzero, answer);
+        return answer;
     }
 }
