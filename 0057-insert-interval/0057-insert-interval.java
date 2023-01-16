@@ -1,31 +1,27 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] nI) {
        
-        Stack<int[]> stack = new Stack<>();
-        
-        for(int i = intervals.length-1; i >=0; i--){
-            stack.add(intervals[i]);
-        }
+       
+     
         ArrayList<int[]> answer = new ArrayList<>();
      
-        while(!stack.isEmpty()){
+        for(int[] x  : intervals){
             
             
-            if(isOverlap(nI, stack.peek())){
-                merge(nI, stack.pop());
+            if(isOverlap(nI, x)){
+                merge(nI, x);
                 
             }else{
-                answer.add(stack.pop());
+                answer.add(x);
             }
             
         }
-        answer.add(nI)
-            ;
+        answer.add(nI);
+        
+        
         Collections.sort(answer,(a,b)->{
             return Integer.compare(a[0],b[0]);
         });
-        
-        
         int j = 0;
         
         // System.out.println(Arrays.toString(nI));
