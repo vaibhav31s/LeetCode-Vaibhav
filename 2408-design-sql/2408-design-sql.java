@@ -10,24 +10,25 @@ class SQL {
     
     public void insertRow(String name, List<String> row) {
         table t = tables.get(name);
-        t.list.add(row);
+        t.list.put(t.ind, row);
+        t.ind++;
     }
     
     public void deleteRow(String name, int rowId) {
         table t = tables.get(name);
-        t.del.add(rowId-1);
+        t.list.remove(rowId);
     }
     
     public String selectCell(String name, int rowId, int columnId) {
         table t = tables.get(name);
-        if(t.del.contains(rowId-1)) return "";
-        String s = t.list.get(rowId -1).get(columnId-1);
+        if(!t.list.containsKey(rowId)) return "";
+        String s = t.list.get(rowId).get(columnId-1);
         return s;
     }
 }
 class table{
-    List<List<String>> list = new ArrayList<>();
-    Set<Integer> del = new HashSet<>();
+    HashMap<Integer,List<String>> list = new HashMap<>();
+    int ind = 1;
 }
 
 /**
