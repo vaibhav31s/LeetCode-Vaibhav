@@ -1,11 +1,12 @@
 class Solution {
     public int mincostTickets(int[] days, int[] costs) {
-        return go(days, costs, 0,0, new HashMap<>());
+         return go(days, costs, 0,0, new HashMap<>());
         
     }
     
-    int go(int[] days, int[] costs, int index, int a, HashMap<Integer, Integer> dp){
+       int go(int[] days, int[] costs, int index, int a, HashMap<Integer, Integer> dp){
         
+      
                 if(index >= days.length) return 0;
 
         if(dp.containsKey(index)) return dp.get(index);
@@ -20,14 +21,13 @@ class Solution {
     
     int increament(int[] days, int index, int delta){
         
-        
         int d = days[index];
-         d += delta;
-        int i;
-        for(i=index;i<days.length;i++){
-            if(days[i]>=d) break;
+        d += delta;
+        while(index < days.length && d > days[index]){
+            index++;
         }
-        return i;
+        
+        return index;
         
     }
 }
