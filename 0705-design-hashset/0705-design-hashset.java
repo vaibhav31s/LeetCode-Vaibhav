@@ -1,21 +1,21 @@
 class MyHashSet {
-    int[] map ;
+    boolean[] map ;
     public MyHashSet() {
-        map = new int[1000001];
-        Arrays.fill(map,-1);
+        map = new boolean[1000001];
+        // Arrays.fill(map,-1);
         
     }
     
     public void add(int key) {
-        map[key] = key;
+        map[key] = true;
     }
     
     public void remove(int key) {
-        map[key] = -1;
+        map[key] = false;
     }
     
     public boolean contains(int key) {
-        if(map[key] == -1)return false;
+        if(!map[key] )return false;
         return true;
     }
 }
