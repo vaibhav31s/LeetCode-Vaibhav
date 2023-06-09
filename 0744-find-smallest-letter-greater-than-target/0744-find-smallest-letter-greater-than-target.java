@@ -1,8 +1,8 @@
 class Solution {
     public char nextGreatestLetter(char[] letters, char target) {
-        if(target == 'z') {target = 'a'-1;
+//         if(target == 'z') {target = 'a'-1;
                         
-                          }
+//                           }
 
         
         int ans=  upper_bound(letters, target);
