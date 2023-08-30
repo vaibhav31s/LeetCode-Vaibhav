@@ -43,9 +43,7 @@ class Solution {
         que.add(0);
         HashSet<Integer> set = new HashSet<>();
         while(!que.isEmpty()) {
-            int size = que.size();
             
-            while(size-- > 0) {
                 int popped = que.poll();
                 
                 if(set.contains(popped)) continue;
@@ -54,7 +52,7 @@ class Solution {
                 for(int neighbor : adj.get(popped)) {
                     que.add(neighbor);
                 }
-            }
+        
             
             
             
