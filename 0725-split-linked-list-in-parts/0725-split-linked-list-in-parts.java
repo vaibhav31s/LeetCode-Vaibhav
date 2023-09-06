@@ -12,23 +12,7 @@ class Solution {
     public ListNode[] splitListToParts(ListNode head, int k) {
         int n = getTotalNodes(head);
         ListNode[] answer = new ListNode[k];
-        if (n <= k) {
-            for (int i = 0; i < k; i++) {
-                if(head == null) {
-                     answer[i] = null;
-                    continue;
-                }
-                answer[i] = head;
-                head = head.next;
-            }
-            for (int i = 0; i < k; i++) {
-                if(answer[i] == null) continue;
-                answer[i].next = null;
-            }
-           
-            return answer;
-        }
-         
+  
         int total = n / k; 
         int i = 0;
        
