@@ -3,26 +3,12 @@ class Solution {
     public int[] restoreArray(int[][] adjacentPairs) {
         
         HashMap<Integer, Pair> map = new HashMap<>();
-
         for (int[] adj : adjacentPairs) {
-            
-            map.putIfAbsent(adj[0], new Pair(adj[0]));
-            map.putIfAbsent(adj[1], new Pair(adj[1]));
-
-            map.get(adj[0]).Add(map.get(adj[1]));
-            map.get(adj[1]).Add(map.get(adj[0]));
-            
+            map.computeIfAbsent(adj[0], Pair::new).add(map.computeIfAbsent(adj[1], Pair::new));
+            map.computeIfAbsent(adj[1], Pair::new).add(map.get(adj[0]));
         }
         
-        
-        
-        int start = 0;
-        for (int val : map.keySet()) {
-            if(map.get(val).second == null) {
-                start = val;
-                break;
-            }
-        } 
+        int start = map.keySet().stream().filter(val -> map.get(val).second == null).findFirst().orElseThrow();
         
         HashSet<Integer> vis = new HashSet<>();
         // System.out.println(start);
@@ -32,22 +18,13 @@ class Solution {
         vis.add(ans[0]);
         int p = 1;
         Pair temp = map.get(start).first;
-        while(p < map.size()) {
+
+        while (p < map.size() && temp != null) {
             ans[p++] = temp.val;
             vis.add(temp.val);
-            Integer f = temp.first.val;
-            
-            if(temp.second == null) break;
-            Integer s = temp.second.val;
-            
-            
-            if(!vis.contains(temp.first.val)) {
-                temp = temp.first;
-            } else {
-                temp = temp.second;
-            }
+            temp = vis.contains(temp.first.val) ? temp.second : temp.first;
         }
-        
+
         return ans;
     }
     
@@ -60,7 +37,7 @@ class Solution {
             this.val = val;
         }
         
-        void Add(Pair p) {
+        void add(Pair p) {
             if(counter == 0) {
                 first = p;
                 counter++;
