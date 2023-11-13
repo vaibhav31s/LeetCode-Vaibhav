@@ -30,8 +30,6 @@ class Graph {
         dq.add(new Pair(node1, 0));
         while(!dq.isEmpty()) {
             
-        // System.out.println(vis);
-            
             Pair<Integer, Integer> curPair = dq.poll();
             
             int curPairVal = curPair.getKey();
@@ -41,21 +39,18 @@ class Graph {
                 int pairVal = pair.getKey();
                 int pairWeight = pair.getValue();
                 
-                
-                
                 if(curWeight + pairWeight >= weight[pairVal]) continue;
                 else weight[pairVal] = curWeight + pairWeight;
-                
-                
+    
                 dq.add(new Pair(pairVal, curWeight + pairWeight));
-                
-                
             }
+            
+            if(curPairVal == node2) return weight[node2];
             
            
         }
         
-        if(weight[node2] != Integer.MAX_VALUE) return weight[node2];
+        // if(weight[node2] != Integer.MAX_VALUE) return weight[node2];
         System.out.println(Arrays.toString(weight));
         
         return -1;
