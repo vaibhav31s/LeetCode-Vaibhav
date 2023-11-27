@@ -6,15 +6,18 @@ class Solution {
         long ans = 0;
         long[] lastState = new long[10];
         Arrays.fill(lastState, 1L);
+        long[] currentState = new long[10];
         for (int i = 1; i < n; i++) {
-            long[] currentState = new long[10];
+            Arrays.fill(currentState, 0);
             for (int cur = 0; cur < 10; cur++) {
                 for (int j = 0; j < canGo[cur].length; j++) {
                         currentState[cur] += lastState[canGo[cur][j]];
                 }
                 currentState[cur] %= mod;
             }
-            lastState = currentState;
+            for(int a = 0; a < 10; a++) {
+                lastState[a] = currentState[a];
+            }
         }
         
         for (long x :  lastState) {
