@@ -3,12 +3,7 @@ class Solution {
         int total = 0;
         int week = 0;
         while(n > 0) {
-            int end = 7;
-            if( n <= 7) {
-                end = n;
-            } else {
-                end = 7;
-            }
+            int end = Math.min(n, 7);
             total += getSum(week , week + end);
             n -= 7;
             week++;
