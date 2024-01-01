@@ -1,18 +1,17 @@
 class Solution {
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int x : s) pq.add(x);
+        Arrays.sort(s);
         int count = 0;
+        int j = 0;
         for(int x :  g) {
-            if(pq.isEmpty()) break;
-            while(!pq.isEmpty() && pq.peek() < x) {
-                pq.poll();
+            while(j < s.length && s[j] < x) {
+                j++;
             }
-            if(pq.isEmpty()) break;
-            if(pq.peek() >=  x) {
+            
+            if(j < s.length && s[j] >=  x) {
                 count++;
-                pq.poll();
+                j++;
             }
         }
             
