@@ -12,8 +12,10 @@ class Solution {
         while(max-- > 0) {
             List<Integer> ans = new ArrayList<>();
             for(int j = 1; j < 201; j++){
-                if(map[j] > 0) ans.add(j);
-                map[j]--;
+                if(map[j] > 0) {
+                    ans.add(j);
+                    map[j]--;
+                }
             }
             answer.add(ans);
         }
