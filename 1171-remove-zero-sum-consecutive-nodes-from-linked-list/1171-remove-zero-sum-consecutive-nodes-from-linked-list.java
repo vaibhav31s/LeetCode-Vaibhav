@@ -29,9 +29,7 @@ class Solution {
         
         if (size == 1) return pref[0].getKey();
         
-        PriorityQueue<Pair<Integer, Pair<Integer, Integer>>> pq = new PriorityQueue<>((a,b)->{
-            return b.getKey() - a.getKey();
-        });
+        
         ListNode answer = null;
         
         
@@ -54,6 +52,7 @@ class Solution {
                         
                     }
                        i = j;
+                    break;
                 }
          
             }
