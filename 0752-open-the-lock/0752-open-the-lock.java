@@ -1,32 +1,36 @@
 class Solution {
     public int openLock(String[] deadends, String target) {
-        String sb = "0000";
+        String start = "0000";
         int count = 0;
-        Deque<String> dq = new LinkedList<>();
-        HashSet<String> set = new HashSet<>();
-        HashSet<String> find = new HashSet<>();
-        for (String x :  deadends) find.add(x);
-        dq.add("0000");
+        Set<String> deadEnds = new HashSet<>(Arrays.asList(deadends));
+        Queue<String> dq = new LinkedList<>();
+        dq.offer(start);
         
         while (!dq.isEmpty()) {
             int size = dq.size();
             while (size-- > 0) {
                 String last = dq.poll();
-                // System.out.println(last);
-                if (set.contains(last) || find.contains(last)) continue;
-                if (last.equals(target)) return count;
+                
+                if (deadEnds.contains(last)) 
+                    continue;
+                
+                if (last.equals(target)) 
+                    return count;
+                
                 for (int i = 0; i < last.length(); i++) {
-                    dq.add(turnUp(last.toCharArray(), i, 1));
-                    dq.add(turnUp(last.toCharArray(), i, 0));
+                    String up = turnUp(last.toCharArray(), i, 1);
+                    String down = turnUp(last.toCharArray(), i, 0);
+                    
+                    if (!deadEnds.contains(up)) dq.offer(up);
+                    if (!deadEnds.contains(down)) dq.offer(down);
                 }
-                set.add(last); 
+                deadEnds.add(last); 
             }
-        
             count++;
         }
-        
         return -1;
     }
+    
     String turnUp(char[] arr, int ind, int dir) {
         if (arr[ind] == '9' && dir == 1) arr[ind] = '0';
         else
