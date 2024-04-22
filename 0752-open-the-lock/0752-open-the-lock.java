@@ -15,16 +15,11 @@ class Solution {
                 // System.out.println(last);
                 if (set.contains(last) || find.contains(last)) continue;
                 if (last.equals(target)) return count;
-                
-                dq.add(turnUp(last.toCharArray(), 0, 1));
-                dq.add(turnUp(last.toCharArray(), 0, 0));
-                dq.add(turnUp(last.toCharArray(), 1, 1));
-                dq.add(turnUp(last.toCharArray(), 1, 0));
-                dq.add(turnUp(last.toCharArray(), 2, 1));
-                dq.add(turnUp(last.toCharArray(), 2, 0));
-                dq.add(turnUp(last.toCharArray(), 3, 1));
-                dq.add(turnUp(last.toCharArray(), 3, 0));
-                set.add(last);
+                for (int i = 0; i < last.length(); i++) {
+                    dq.add(turnUp(last.toCharArray(), i, 1));
+                    dq.add(turnUp(last.toCharArray(), i, 0));
+                }
+                set.add(last); 
             }
         
             count++;
