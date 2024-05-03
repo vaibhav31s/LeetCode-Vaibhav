@@ -1,45 +1,49 @@
 class Solution {
     public int compareVersion(String version1, String version2) {
-        Deque<Integer> dq1 = getList(version1);
-        Deque<Integer> dq2 = getList(version2);
+        Deque<Integer> dq1 = getVersionDeque(version1);
+        Deque<Integer> dq2 = getVersionDeque(version2);
         
         while (!dq1.isEmpty() && !dq2.isEmpty()) {
-            int f = dq1.poll();
-            int s = dq2.poll();
-            if (f < s) {
+            int first = dq1.poll();
+            int second = dq2.poll();
+            if (first < second) {
                 return -1;
-            } else if (f > s) {
+            } else if (first > second) {
                 return 1;
             } 
         }
         
         while (!dq1.isEmpty()) {
-            if (dq1.poll() == 0) continue;
-            else return 1;
+            if (dq1.poll() != 0) {
+                return 1;
+            }
         }
         
         while (!dq2.isEmpty()) {
-            if (dq2.poll() == 0) continue;
-            else return -1;
+            if (dq2.poll() != 0) {
+                return -1;
+            }
         }
         return 0;
     }
     
-    public Deque<Integer> getList(String version) {
+    public Deque<Integer> getVersionDeque(String version) {
         Deque<Integer> dq = new LinkedList<>();
-        String[] v = version.split("\\.");
+        String[] versionPart = version.split("\\.");
         
-        for (String s : v) {
+        for (String part : versionPart) {
             StringBuilder sb = new StringBuilder();
-            boolean zero = true;
-            for (char ch : s.toCharArray()) {
-                if (ch == '0' && !zero) {
+            boolean leadingZero = true;
+            
+            for (char ch : part.toCharArray()) {
+                if (ch == '0' && !leadingZero) {
                     sb.append(ch);
                 } else if (ch != '0') {
                     sb.append(ch);
-                    zero = false;
+                    leadingZero = false;
                 }
             }
+            
             if (sb.isEmpty()) {
                dq.add(0);
             } else {
