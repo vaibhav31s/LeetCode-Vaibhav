@@ -1,18 +1,15 @@
 class Solution {
     public long maximumHappinessSum(int[] happiness, int k) {
         int limit = 0;
-        
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        for(int x :  happiness) pq.add(x);
+        Arrays.sort(happiness);
+        int end = happiness.length - 1;
         long answer = 0;
         while (k-- > 0) {
-            int last = pq.poll();
+            int last = happiness[end--];
             if (limit > last) break;
             answer += (last - limit);
             limit++;
         }
-        
-        
         return answer;
     }
 }
