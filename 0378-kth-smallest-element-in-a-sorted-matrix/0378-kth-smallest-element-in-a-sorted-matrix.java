@@ -17,23 +17,8 @@ class Solution {
     
     public boolean check(int[][] matrix, int mid, int k) {
         int count = 0;
-        for (int[] mat : matrix) {
-            int ub = Arrays.binarySearch(mat, mid);
-            
-            if (ub<0) {
-                ub=Math.abs(ub)-1;
-            } else {
-                int y= mat[ub];
-                for(int i= ub + 1; i< mat.length; i++){
-                    if (mat[i] == y) 
-                        ++ub;
-                    else 
-                        break;
-                 }
-             ++ub;
-            }
-                
-            count += ub;
+        for (int[] mat : matrix) { 
+            count += upperbound(mat, mid);
         }
         
         return k <= count;
@@ -45,11 +30,13 @@ class Solution {
         
         while (start <= end) {
             int mid = start + (end - start) / 2;
-            if (mid > k) {
+            if (mat[mid] > k) {
                 end = mid - 1;
+                
             } else {
                 start = mid + 1;
                 ans = mid;
+                
             }
         }
         return ans + 1;
