@@ -1,14 +1,13 @@
 class Solution {
     public int matrixScore(int[][] grid) {
         int n = grid.length, m = grid[0].length;
-        int answer = getSum(grid);
         
-        for (int i = 0; i < n; i++) {
-            if (grid[i][0] == 0) flipRow(grid[i]);
+        for (int row = 0; row < n; row++) {
+            if (grid[row][0] == 0) flipRow(grid[row]);
         }
             
-        for (int j = 0; j < m; j++) {
-            flipCol(grid, j);
+        for (int col = 0; col < m; col++) {
+            flipCol(grid, col);
         }
         return getSum(grid);
     }
@@ -17,32 +16,32 @@ class Solution {
     public int getSum(int[][] grid) {
         int sum = 0;
 
-        for (int[] x : grid) {
+        for (int[] row : grid) {
             StringBuilder sb = new StringBuilder();
-            for (int xx : x) {
-                sb.append(xx+ "");
+            
+            for (int val : row) {
+                sb.append(val + "");
             }
             sum += Integer.parseInt(sb.toString(), 2);
         }
-
         return sum;
     }
 
-    public void flipRow(int[] g) {
-        for (int i = 0; i < g.length; i++) {
-            if (g[i] == 0) {
-                g[i] = 1;
+    public void flipRow(int[] curRow) {
+        for (int row = 0; row < curRow.length; row++) {
+            if (curRow[row] == 0) {
+                curRow[row] = 1;
             } else {
-                g[i] = 0;
+                curRow[row] = 0;
             }
         }
     }
     
-    public void flipCol(int[][] g, int col) {
+    public void flipCol(int[][] grid, int col) {
         int zeros = 0, ones = 0;
         
-        for (int i = 0; i < g.length; i++) {
-            if (g[i][col] == 0) {
+        for (int row = 0; row < grid.length; row++) {
+            if (grid[row][col] == 0) {
                 zeros++;
             } else {
                 ones++;
@@ -50,11 +49,11 @@ class Solution {
         }
         
         if (zeros >= ones) {
-            for (int i = 0; i < g.length; i++) {
-                if (g[i][col] == 0) {
-                    g[i][col] = 1;
+            for (int row = 0; row < grid.length; row++) {
+                if (grid[row][col] == 0) {
+                    grid[row][col] = 1;
                 } else {
-                    g[i][col] = 0;
+                    grid[row][col] = 0;
                 }
             }
         }
