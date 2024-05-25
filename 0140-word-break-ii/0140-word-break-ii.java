@@ -1,49 +1,34 @@
 class Solution {
-     List<String> answer = new ArrayList<>();
+    List<String> answer = new ArrayList<>();
     public List<String> wordBreak(String s, List<String> wordDict) {
-        int[] dp = new int[s.length() + 1];
-        Arrays.fill(dp, -1);
-       
-        List<Integer> dq = new ArrayList<>();
-        go(s.toCharArray(), wordDict, 0, dp, dq);
-      return  answer;
+        HashSet<String> set = new HashSet<>();
+        for (String ss : wordDict) set.add(ss);
+        go(s, 0, set, new ArrayList<>());
+        return answer;
     }
     
-    void go(char[] arr, List<String> words, int cur, int[] dp, List<Integer> dq) {
-        if(cur > arr.length) return ;
-        
-        // if(dp[cur] != -1) ret
-        if(cur == arr.length) {
-            // System.out.println(cur + " ");
+    void go(String s, int index, HashSet<String> wordDict, ArrayList<String> subAnswer) {
+        if (index >= s.length()) {
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < dq.size() - 1; i++) {
-                sb.append(words.get(dq.get(i)) + " ");
+            for (String x : subAnswer) {
+                sb.append(x + " ");
             }
-            sb.append(words.get(dq.get(dq.size()-1)));
-            answer.add(sb.toString());
+            if (sb.length() > 1) {
+                sb.deleteCharAt(sb.length() - 1);
+                answer.add(sb.toString());
+            }
+            
+            
             return;
-        }
-     
-      
-        outer:
-        for (int str = 0; str < words.size(); str++) {
-            
-            String s = words.get(str);
-            int len = s.length();
-            
-            
-            for(int i = 0; i < len; i++) {
-                if(cur + i >= arr.length) continue outer;
-                if(s.charAt(i) != arr[cur + i]) continue outer;
-                
+        } 
+        
+        for (int i = index + 1; i <= Math.min(s.length(), i + 10); i++) {
+            String sub = s.substring(index, i);
+            if (wordDict.contains(sub)) {
+                subAnswer.add(sub);
+                go(s, i, wordDict, subAnswer);
+                subAnswer.remove(subAnswer.size() - 1);
             }
-            dq.add(str);
-             go(arr, words, cur + len,dp, dq);
-            dq.remove(dq.size() - 1);
         }
-        
-     
-        
     }
 }
-
