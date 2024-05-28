@@ -1,4 +1,5 @@
 class Solution {
+    //pref binary slidingWindow
     public int equalSubstring(String s, String t, int maxCost) {
         int start = 0;
         int end = s.length();
