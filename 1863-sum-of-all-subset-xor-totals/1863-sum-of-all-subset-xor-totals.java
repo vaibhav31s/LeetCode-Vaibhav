@@ -1,23 +1,16 @@
 class Solution {
-    int answer = 0;
     public int subsetXORSum(int[] nums) {
-        go(nums, 0, new ArrayList<>());
-        return answer;
+        return go(nums, 0, 0);
     }
     
-    void go(int[] nums, int index, List<Integer> list) {
+    int go(int[] nums, int index, int xor) {
         if (index >= nums.length) {
-            int xor = 0;
-            for(int x : list) {
-                xor ^= x;
-            }
-            answer += xor;
-            return;
+            return xor;
         }
-        list.add(nums[index]);
-        go(nums, index + 1,list);
-        list.remove(list.size() - 1);
         
-        go(nums, index + 1,list);
+        int with = go(nums, index + 1,xor ^ nums[index]);
+        int without = go(nums, index + 1,xor);
+        
+        return with + without;
     }
 }
