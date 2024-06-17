@@ -2,7 +2,7 @@ class Solution {
     public boolean judgeSquareSum(int c) {
         if (c == 0) return true;
         
-        for (long b = 0; b * b <= c; b++) {
+        for (long b = 0; b * b <= Integer.MAX_VALUE; b++) {
             if (isSquare(c - b * b)) return true;
         }
         
@@ -11,7 +11,6 @@ class Solution {
     
     boolean isSquare(long n) {
         double sr = Math.sqrt(n);
-        
         return sr == (double)(int)sr;
     }
 }
