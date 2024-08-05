@@ -5,10 +5,10 @@ class Solution {
         for (String s :  arr) {
             map.put(s, map.getOrDefault(s, 0) + 1);
         }
-        for (String s :  arr) {
-            if (map.get(s) == 1)  {
+        for (Map.Entry<String, Integer> kv : map.entrySet()) {
+            if (kv.getValue() == 1)  {
                 k--;
-                if (k == 0) return s;
+                if (k == 0) return kv.getKey();
             }
         }
         return "";
