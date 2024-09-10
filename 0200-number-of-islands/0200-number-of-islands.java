@@ -3,37 +3,24 @@ class Solution {
     public int numIslands(char[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
-        int count = 0;
+        
+        UnionFind uf = new UnionFind(n * m, grid);
+        
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (grid[i][j] == '1') {
-                    BFS(grid, i, j);
-                    count++;
-                }
-            }
-        }
-        
-        return count;
-    }
-    
-    void BFS(char[][] grid, int i, int j) {
-        Deque<int[]> dq = new LinkedList<>();
-        dq.add(new int[]{i, j});
-        
-        while (!dq.isEmpty()) {
-            int size = dq.size();
-            while (size-- > 0) {
-                int[] coord = dq.poll();
-                for (int[] dir : directions) {
-                    int x = dir[0] + coord[0];
-                    int y = dir[1] + coord[1];
-                    if (isValidCoordinate(grid, x, y, grid.length, grid[0].length)) {
-                        dq.add(new int[]{x, y});
-                        grid[x][y] = '0';
+                    for (int[] dir : directions) {
+                        int xx = i + dir[0];
+                        int yy = j + dir[1];
+                        if (isValidCoordinate(grid, xx, yy, n, m)) {
+                            uf.union((i * m) + j, (xx * m) + yy);
+                        }
                     }
                 }
             }
         }
+        
+        return uf.getCount();
     }
     
     boolean isValidCoordinate(char[][] grid, int x, int y, int n, int m) {
@@ -42,5 +29,56 @@ class Solution {
         }
         
         return true;
+    }
+    
+    class UnionFind {
+        int[] root;
+        int[] rank;
+        int count = 0;
+        
+        UnionFind(int size, char[][] grid) {
+            
+            root = new int[size];
+            rank = new int[size];
+            
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[i].length; j++) {
+                        if (grid[i][j] == '1') {
+                            count++;
+                            root[i * grid[i].length + j ] = i * grid[i].length + j;
+                        }
+                    rank[i * grid[i].length  + j] = 0;
+                }
+                
+            }
+        }
+        
+        int find(int x) {
+            if (x  == root[x]) {
+                return x;
+            }
+            
+            return root[x] = find(root[x]);
+        }
+        
+        void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            
+            if (rootX != rootY) {
+                if (rank[rootX] > rank[rootY]) {
+                    root[rootY] = rootX;
+                } else if (rank[rootX] < rank[rootY]) {
+                    root[rootX] = rootY;
+                } else {
+                    root[rootY] = rootX;
+                    rank[rootX] += 1;
+                }
+                count--;
+            }
+        }
+        int getCount() {
+            return count;
+        }
     }
 }
