@@ -16,21 +16,18 @@ class Solution {
             }
         }
         
-        HashSet<Integer> set = new HashSet<>();
-        
-        for (int i = 0; i < size; i++) {
-                set.add(uf.find(i));  
-        }
-        set.remove(-1);
-        return set.size();
+       
+        return uf.getNoOfIsland();
     }
     
     class UnionFind {
         int[] root;
         int[] rank;
+        int count;
         UnionFind(int size) {
             root = new int[size];
             rank = new int[size];
+            count = size;
             for (int i = 0; i < size; i++) {
                 root[i] = i;
                 rank[i] = 1;
@@ -58,11 +55,16 @@ class Solution {
                     root[rootY] = rootX;
                     rank[rootX] += 1;
                 }
+                count--;
             }
         }
         
         boolean connected(int x, int y) {
             return find(x) == find(y);
+        }
+        
+        int getNoOfIsland() {
+            return count;
         }
         
     }
