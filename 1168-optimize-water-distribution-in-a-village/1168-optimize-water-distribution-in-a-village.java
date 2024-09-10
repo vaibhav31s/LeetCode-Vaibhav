@@ -19,12 +19,17 @@ class Solution {
         }
         
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+       
+        
         for (int i = 0; i < wells.length; ++i) {
-            int[] virtualEdge = new int[]{i + 1, wells[i]};
-            alist.get(0).add(virtualEdge);
-            // initialize the heap with the edges from the virtual vertex.
+            int[] edge = new int[]{i + 1, wells[i]};
+            alist.get(n).add(edge);
+           
             pq.add(new int[]{wells[i], i + 1});
         }
+        
+        
+        
         boolean[] vis = new boolean[n + 1];
         
         while (!pq.isEmpty()) {
