@@ -1,26 +1,32 @@
 class Solution {
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        Deque<Pair<Integer, List<Integer>>> dq = new LinkedList<>();
         List<List<Integer>> answer = new ArrayList<>();
+        dq.add(new Pair<>(0, new ArrayList<>()));
         
-        traverse(graph, 0, graph.length - 1, answer, new ArrayList<>());
+        while (!dq.isEmpty()) {
+            int size = dq.size();
+            while (size-- > 0) {
+                Pair<Integer, List<Integer>> curPair = dq.poll();
+                int curNode = curPair.getKey();
+                List<Integer> curList = curPair.getValue();
+                
+                if (curNode == graph.length - 1) {
+                    curList.add(graph.length - 1);
+                    answer.add(curList);
+                    continue;
+                }
+                
+                
+                
+                for (int node : graph[curNode]) {
+                    List<Integer> deepCopy = new ArrayList<>(curList);
+                    deepCopy.add(curNode);
+                    dq.add(new Pair<>(node, deepCopy));
+                }
+            }
+        }
         
         return answer;
     }
-    
-    void traverse(int[][] graph, int cur, int end, List<List<Integer>> answer, List<Integer> curPath) {
-        if (cur == end) {
-            curPath.add(end);
-            answer.add(new ArrayList<>(curPath));
-            curPath.remove(curPath.size() - 1);
-            return;
-        }
-        
-        curPath.add(cur);
-        for (int node : graph[cur]) {
-            traverse(graph, node, end, answer, curPath);
-        }
-        
-        curPath.remove(curPath.size() - 1);
-    }
-    
 }
