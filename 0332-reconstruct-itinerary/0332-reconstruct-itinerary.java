@@ -11,7 +11,7 @@ class Solution {
             String A = edge.get(0);
             String B = edge.get(1);
             //Since its A to B
-            alist.putIfAbsent(A, new ArrayList<>());
+            alist.putIfAbsent(A, new LinkedList<>());
             alist.get(A).add(B);
         }
         
