@@ -26,6 +26,4 @@ class Solution {
         
         return max;
     }
-    
-   
 }
