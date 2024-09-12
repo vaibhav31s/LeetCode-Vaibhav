@@ -3,13 +3,7 @@ class Solution {
     public int minimumEffortPath(int[][] heights) {
         int n = heights.length;
         int m = heights[0].length;
-        int[] dist = new int[n * m];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        int src = 0;
-        dist[src] = 0;
-        
         int size = n * m;
-        
         List<int[]> edges = new ArrayList<>();
         
         
@@ -30,24 +24,42 @@ class Solution {
             }
         }
         
-        for (int i = 0; i <= size + size + 1; i++) {
-            boolean isRelaxed = false;
-            for (int[] edge : edges) {
-                int ui = edge[0];
-                int vi = edge[1];
-                int maxDif = edge[2];
-                
-                if (dist[ui] != Integer.MAX_VALUE && Math.max(dist[ui], maxDif) < dist[vi]) {
-                    dist[vi] = Math.max(dist[ui], maxDif);
-                    isRelaxed = true;
-                }
-            }
-            if (!isRelaxed) {
-                break;
-            }
+        List<List<int[]>> alist = new ArrayList<>();
+        for (int i = 0; i < size; i++) alist.add(new ArrayList<>());
+        
+        for (int[] edge : edges) {
+            int ui = edge[0];
+            int vi = edge[1];
+            int weight = edge[2];
+            alist.get(ui).add(new int[]{vi, weight});
         }
         
-        System.out.println(Arrays.toString(dist));
+        
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        int[] dist = new int[n * m];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        int src = 0;
+        dist[src] = 0;
+        
+        pq.add(new int[]{src, 0});
+        
+        while (!pq.isEmpty()) {
+            int[] currNode = pq.poll();
+            int node = currNode[0];
+            int weight = currNode[1];
+            
+
+            for (int[] adjCell : alist.get(node)) {
+                int cell = adjCell[0];
+                int value = adjCell[1];
+                
+                if (dist[cell] > Math.max(weight, value)) {
+                    dist[cell] = Math.max(weight, value);
+                    pq.add(new int[]{cell, Math.max(weight, value)});
+                }
+            }
+            
+        }
         
         return dist[size - 1];
         
