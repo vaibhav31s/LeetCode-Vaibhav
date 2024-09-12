@@ -30,21 +30,19 @@ class Solution {
             }
         }
         
-          for (int i = 0; i < size - 1; i++) { 
-            boolean relaxed = false;
+        for (int i = 0; i <= size + size + 1; i++) {
+            boolean isRelaxed = false;
             for (int[] edge : edges) {
-                int u = edge[0];
-                int v = edge[1]; // Destination node
-                int weight = edge[2]; // Weight of the edge (effort)
-
-                // Relax the edge if possible
-                if (dist[u] != Integer.MAX_VALUE && Math.max(dist[u], weight) < dist[v]) {
-                    dist[v] = Math.max(dist[u], weight);
-                    relaxed = true;
+                int ui = edge[0];
+                int vi = edge[1];
+                int maxDif = edge[2];
+                
+                if (dist[ui] != Integer.MAX_VALUE && Math.max(dist[ui], maxDif) < dist[vi]) {
+                    dist[vi] = Math.max(dist[ui], maxDif);
+                    isRelaxed = true;
                 }
             }
-            // If no relaxation happened in this iteration, we can stop early
-            if (!relaxed) {
+            if (!isRelaxed) {
                 break;
             }
         }
