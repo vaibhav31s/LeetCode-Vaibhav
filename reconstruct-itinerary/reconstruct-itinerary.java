@@ -3,7 +3,6 @@ class Solution {
     boolean isAnswerFound = false;
     public List<String> findItinerary(List<List<String>> tickets) {
         totalTickets = tickets.size();
-      
         
         HashMap<String, List<String>> alist = new HashMap<>();
         
@@ -11,30 +10,33 @@ class Solution {
             String A = edge.get(0);
             String B = edge.get(1);
             //Since its A to B
-            alist.putIfAbsent(A, new ArrayList<>());
+            alist.putIfAbsent(A, new LinkedList<>());
             alist.get(A).add(B);
         }
         
-        for (List<String> ma : alist.values()) {
-            Collections.sort(ma);
+        for (List<String> list : alist.values()) {
+            Collections.sort(list);
         }
-        List<String> answer = new ArrayList<>();
         
+        List<String> answer = new ArrayList<>();
         travel(alist, "JFK", answer);
         return answer;
     }
     
-    void travel(HashMap<String, List<String>> map, String from, List<String> answer) {
-        List<String> neighbors = map.getOrDefault(from, new ArrayList<>());
-        while (!neighbors.isEmpty()) {
-            String to = neighbors.get(0);
-            neighbors.remove(0);
-            travel(map, to, answer);
+    boolean flag = false;
+    void travel(HashMap<String, List<String>> alist , String curStation, List<String> answer) {
+        List<String> childs = alist.getOrDefault(curStation, new ArrayList<>());
         
+        while(!childs.isEmpty()) {
+            String child = childs.get(0);
+            childs.remove(0);
+            travel(alist, child, answer);
         }
-        answer.add(0, from);
-    }
         
+        answer.add(0, curStation);
        
+    }
+    
+   
     
 }
