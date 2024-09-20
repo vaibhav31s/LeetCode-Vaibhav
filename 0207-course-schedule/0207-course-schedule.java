@@ -35,9 +35,6 @@ class Solution {
         for (int x : inDegree) {
             if (x > 0) ans++;
         }
-        
-        System.out.println(Arrays.toString(inDegree));
-        
         return ans == 0;
     }
 }
